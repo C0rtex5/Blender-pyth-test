@@ -23,7 +23,7 @@ This approach ensures that all projects are documented consistently, facilitatin
 - [Projetos e Extensões](#projetos-e-extensões)
 - [Contribuição](#contribuição)
 - [Licença](#licença) -->
-
+<!-- 
 ## Introdução
 
 Este repositório contém uma coleção de extensões e scripts em Python desenvolvidos para o Blender. Cada projeto é documentado detalhadamente para facilitar o entendimento e o uso.
@@ -34,4 +34,4 @@ Este repositório contém uma coleção de extensões e scripts em Python desenv
 
 ```sh
    git clone https://github.com/seu-usuario/nome-do-repositorio.git
-```
+``` -->
