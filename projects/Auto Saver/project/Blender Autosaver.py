@@ -1,10 +1,17 @@
+# License: GPL-3.0-or-later
+
 bl_info = {
-    "name": "Blender File Autosaver",
+    "name": "Open File Autosaver",
     "blender": (4, 1, 0),
     "category": "System",
-    "version": (1, 0),
+    "version": (1, 1, 0),
     "author": "C0rtex5",
     "description": "An add-on for auto-saving Blender files",
+    "location": "File > Tool > Open File Autosaver",
+    "warning": "This addon will be merged giving an mutli platfrom extension",
+    "wiki_url": "",
+    "tracker_url": "",
+    "support": "COMMUNITY",
 }
 
 import bpy
@@ -92,7 +99,7 @@ class OBJECT_PT_autosave_panel(bpy.types.Panel):
         layout.prop(scene, "autosave_interval")
         
         if scene.autosave_enabled:
-            layout.operator("object.autosave", text="Save Now")
+            layout.label(text="Autosave Settings", icon='FILE_TICK')
 
 # _______________________________________________Register and Unregister_______________________________________________
 
