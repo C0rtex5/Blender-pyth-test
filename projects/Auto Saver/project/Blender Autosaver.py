@@ -29,6 +29,18 @@ class OBJECT_OT_autosave(bpy.types.Operator):
         self.report({'INFO'}, "File autosaved")
         return {'FINISHED'}
 
+# _______________________________________________Enabler_______________________________________________
+
+def clear_properties():
+    del bpy.types.Scene.autosave_enabled
+    del bpy.types.Scene.autosave_interval
+
+def update_autosave_status(self, context):
+    if context.scene.autosave_enabled:
+        AutosaveTimer.start(context.scene.autosave_interval)
+    else:
+        AutosaveTimer.stop()
+
 # _______________________________________________Autosave Timer_______________________________________________
 
 class AutosaveTimer:
@@ -72,34 +84,41 @@ def init_properties():
         max=3600
     )
 
-def clear_properties():
-    del bpy.types.Scene.autosave_enabled
-    del bpy.types.Scene.autosave_interval
-
-def update_autosave_status(self, context):
-    if context.scene.autosave_enabled:
-        AutosaveTimer.start(context.scene.autosave_interval)
-    else:
-        AutosaveTimer.stop()
-
 # _______________________________________________Panel_______________________________________________
 
 class OBJECT_PT_autosave_panel(bpy.types.Panel):
+    pass
     bl_label = "AutoSave Panel"
-    bl_idname = "OBJECT_PT_autosave_panel"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
-    bl_category = 'Tool'
-
+    bl_category = 'Helper'
+    bl_idname = "OBJECT_PT_autosave_panel"
     def draw(self, context):
         layout = self.layout
         scene = context.scene
 
-        layout.prop(scene, "autosave_enabled")
-        layout.prop(scene, "autosave_interval")
+        # 1. Enable Autosave checkbox first
+        layout.prop(scene, "autosave_enabled", text="Enable Autosave")
+
+        # 2. Autosave Interval second
+        layout.prop(scene, "autosave_interval", text="Autosave Interval (seconds)")
+
+        # 3. Save button third
+        layout.operator("object.autosave", text="Save Now", icon='FILE_TICK')
+
+
+    # def draw(self, context):
+    #     layout = self.layout
+    #     scene = context.scene
+    #     row = layout.row()
+    #     row.operator("object.autosave", text='Save', icon='FILE_TICK')
+    #     """define the layout of the panel"""
+
+    #     layout.prop(scene, "autosave_enabled")
+    #     layout.prop(scene, "autosave_interval")
         
-        if scene.autosave_enabled:
-            layout.label(text="Autosave Settings", icon='FILE_TICK')
+        # if scene.autosave_enabled:
+        #     layout.label(text="Autosave Settings", icon='FILE_TICK')
 
 # _______________________________________________Register and Unregister_______________________________________________
 
